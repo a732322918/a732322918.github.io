@@ -13,4 +13,6 @@ description: 练手学习之用，翻译自https://developer.apple.com/library/i
 
 `Auto Layout`从`Xcode5`开始内建在`IB（Interface Builder）`。
 
-{{ page.title }}
+![autolayout picture one]({{ site.baseurl}}images/autolayout/autolayout_1.png)
+
+
