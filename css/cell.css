@@ -1,0 +1,35 @@
+.content-cell {
+    border-bottom:1px solid lightgrey;
+}
+.content-cell p {
+    text-indent:0em;
+}
+.content-cell-title{
+    display:inline;
+}
+.content-cell-subtitle{
+    display:inline;
+    margin-right:8px;
+}
+.content-cell-description {
+    font-size:1.5em;
+}
+.content-cell-accessory {
+    margin-bottom:8px;
+    padding-top:0.4em;
+    background-color:lightblue;
+    border-radius:4px;
+    width:88px;
+    height: 1.6em;
+    text-align:center;
+}
+.content-cell-accessory a {
+	
+}
+.content-cell-accessory a:link{
+    color:white;
+}
+
+.content-cell-accessory a:visited{
+    color:white;
+}

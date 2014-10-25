@@ -1,0 +1,21 @@
+.button{
+	border-radius:4px;	
+	border:1px solid blue;
+	color:black;
+	box-shadow:1px 1px 1px #333;
+	width:80px;
+	padding:8px;
+	margin-bottom:8px;
+	text-align:center;
+}
+
+.button:hover {
+	background-color:lightBlue;
+	color:white;
+}
+
+.button a {
+	outline:none;
+	text-decoration:none;
+	color:black;
+}
