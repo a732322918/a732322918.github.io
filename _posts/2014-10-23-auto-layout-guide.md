@@ -7,7 +7,7 @@ description: 练手学习之用，翻译自https://developer.apple.com/library/i
 
 ***
 
-## `Auto Layout`介绍 ##
+### `Auto Layout`介绍 ##
 
 对于一个`app`，它的界面元素之间有一定的关系，而`Auto Layout`是对这些关系的数学上的描述。通过使用`Auto Layout`可以达到布局的目的。
 
@@ -15,7 +15,7 @@ description: 练手学习之用，翻译自https://developer.apple.com/library/i
 
 ![autolayout picture one](/images/autolayout/autolayout_1.png)
 
-## `Auto Layout`概念
+### `Auto Layout`概念
 **`constraint`(约束)**是`Auto Layout`的基本建筑块。`constraint`是用来表达你的界面元素之间的规则；例如，你可以创建一个`constraint`用来指定一个元素的宽，或者它与另一个元素之间的水平距离。通过创建、移除或者改变`constraints`来影响界面的布局。
 
 当计算界面元素的运行时位置，`Auto Layout`系统同时考虑所有的`constraint`，通过这样的方式设置元素位置以最佳满足所有的`constraints`。

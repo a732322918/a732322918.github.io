@@ -1,5 +1,6 @@
 .content-cell {
-    border-bottom:1px solid lightgrey;
+    border-bottom:1px solid gray;
+	padding-top:8px;
 }
 .content-cell p {
     text-indent:0em;
