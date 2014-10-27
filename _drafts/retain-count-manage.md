@@ -1,5 +1,4 @@
 ---
 layout: default
-title: Objective-C属性修饰符
 category: 读书笔记
 ---
