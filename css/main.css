@@ -2,27 +2,28 @@ html {
 	background-image:url(/images/content_bg2.jpg)
    
 }
+
 body {
      font-family:Arial, Helvetica, sans-serif;
      font-size:0.9em;
 }
 
-p{
+p {
     text-indent:1.8em;
-	word-wrap:break-word;
+    word-wrap:break-word;
 }
 
-
-img {
+.sample-img {
     border:2px solid lightgray;
     border-radius:4px;
-	max-width:90%;
-	margin:auto;
+    max-width:90%; /* 自适应 */
+    margin:auto;
 }
 
 a:link {
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -32,39 +33,58 @@ a:hover {
 	height:160px;
 	margin-bottom:8px;
 }
-.header  img {
+.header img {
 	background-size:100% 120px;
 	height:100%;
 	width:100%;
 	border:0px solid lightgray;
     border-radius:0px;
 }
+
 .header h2 {
 	margin-left:21%;
 }
-.left-aside{
+
+@media screen and (min-width:601px) {
+    .left-aside{
 	width:20%;
 	height:600px;
 	float:left;
-}
+    }
 
-.content {
+    .logo {
+	position: relative;
+	margin:auto;
+	margin-top: 64px;
+	width:120px;
+	height:120px;
+
+	background-color:#236;
+    }
+
+    .content {
 	width:60%;
 	float:left;
-}
+    }
 
-.content-wapper {
+    .content-wapper {
 	width:96%;
 	height:100%;
 	margin:20px 20px;
-}
+    }
 
-.right-aside{
+    .right-aside{
 	width:20%;
 	float:right;
 	height:600px;
-}
-.footer{
+    }
+
+    .footer{
 	height:120px;
 	clear:both;
+    }
+}
+
+@media screen and (max-width:600px){
+    
 }
