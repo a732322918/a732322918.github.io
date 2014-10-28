@@ -7,8 +7,23 @@
 
 	<div class="left-aside">
 	  <div class="logo">
-	    
+		
 	  </div>
+	  
+	  <div class="tabs">
+		<ul>
+			{% for tab in site.data.tabs %}	
+			<li class="tab-li">
+				<a class="tab-a" href="">
+				<div class="tab">
+				{{ tab.title }}
+				</div>
+				</a>
+			</li>		
+			{% endfor %}
+		</ul>
+	  </div>
+	  
 	</div>
 
 	<div class="right-aside"></div>
