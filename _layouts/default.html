@@ -11,17 +11,18 @@
 	  </div>
 	  
 	  <div class="tabs">
-		<ul>
-			{% for tab in site.data.tabs %}	
-			<li class="tab-li">
-				<a class="tab-a" href="">
-				<div class="tab">
-				{{ tab.title }}
-				</div>
-				</a>
-			</li>		
-			{% endfor %}
-		</ul>
+		
+		{% for tab in site.data.tabs %}	
+		
+				
+		<div class="tab" onclick="location='{{ tab.url }}'">
+		
+		{{ tab.title }}
+		
+		</div>
+				
+		
+		{% endfor %}
 	  </div>
 	  
 	</div>
