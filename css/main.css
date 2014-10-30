@@ -69,10 +69,59 @@ a:hover {
 	}
 	
 	.tab:hover {
-	  background-color:blue;
-	  border:2px solid blue;
-	  color:white;
+	  background-color:lightgray;
+	  border:2px solid lightgray;
+	  color:black;
 	}
+	.tab:active {
+	  background-color:lightgray;
+	  border:2px solid lightgray;
+	  color:black;
+	}
+
+.pagination {
+    border:2px solid blue;
+    text-align:center;
+}
+
+.previous {
+    border:2px solid lightblue;
+    background: red;
+}
+.previous-disabled {
+    width:88px;
+    height:44px;
+    line-height:44px;
+    color:lightgray;
+    border:2px solid lightblue;
+    display:inline-block;
+}
+.disabled {
+    border:1px solid black;
+    width:88px;
+}
+.pages { 
+    display: inline; 
+    border:2px solid red;
+}
+.page {
+    display:inline;
+    list-style-type:none;
+}
+
+.next {}
+.next-disabled {
+    border:2px solid lightblue;
+    display:inline;
+}
+.current-page {
+    background-color: purple;
+    color: white;
+    width:44px;
+    height:44px;
+    line-height:44px;
+    display:inline;
+}
 @media screen and (min-width:601px) {
     .left-aside{
 	width:20%;
@@ -91,7 +140,7 @@ a:hover {
 	border-radius: 100%;
     }
 
-	.tabs { width:120px; }
+    .tabs { width:120px; }
 	
     .content {
 	width:60%;
