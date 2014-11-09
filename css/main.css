@@ -1,5 +1,5 @@
 html {
-	background-image:url(/images/content_bg2.jpg)
+	/* background-image:url(/images/content_bg2.jpg) */
 
 }
 
@@ -12,12 +12,29 @@ p {
     text-indent:1.8em;
     word-wrap:break-word;
 }
+.note {
+	padding:8px 8px;
+	text-indent:0em;
+	border: 1px solid lightblue;
+	border-radius: 2px;
+	background-color: white;
+}
+
+.tip {
+	padding:8px 8px;
+	text-indent:0em;
+	border: 1px solid #FF9900;
+	border-radius: 2px;
+	background-color: white;
+}
 
 .sample-img {
-    border:2px solid lightgray;
-    border-radius:4px;
-    max-width:90%; /* 自适应 */
     margin:auto;
+    max-width:90%; /* 自适应 */
+    
+	
+	border:1px solid lightgray;
+    border-radius:2px;
 }
 
 a:link {
@@ -47,35 +64,32 @@ a:hover {
 
 
 .tabs {
-	  margin:auto;
-	  margin-top:20px;
-	  text-align: center;
+	  margin:20px auto;
 	}
 
 	.tab {
 
-	  margin:auto;
-	  margin-top:8px;
+	  margin:8px auto;
 	  width:88px;
 	  height:35px;
 	 
-	  
-	  font-weight:bold;
+	  text-align: center;
+	  /* font-weight:bold; */
 	  line-height:35px;
 	  
 	  color:lightgray;
-	  border:2px solid lightgray;
-	  border-radius:4px;
+	  border:1px solid lightgray;
+	  border-radius:2px;
 	}
 	
 	.tab:hover {
 	  background-color:lightgray;
-	  border:2px solid lightgray;
+	  border:1px solid lightgray;
 	  color:black;
 	}
 	.tab:active {
 	  background-color:lightgray;
-	  border:2px solid lightgray;
+	  border:1px solid lightgray;
 	  color:black;
 	}
 
@@ -124,15 +138,17 @@ a:hover {
 }
 @media screen and (min-width:601px) {
     .left-aside{
-	width:20%;
-	height:600px;
+	margin: -8px 0px 0px -8px;
+	padding: 120px 0px;
+	width:19%;
 	float:left;
+	border: 1px solid lightgray;
+	border-radius: 2px;
     }
 
     .logo {
-	position: relative;
+	/* position: relative; */
 	margin:auto;
-	margin-top: 64px;
 	width:120px;
 	height:120px;
 
