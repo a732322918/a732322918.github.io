@@ -189,3 +189,10 @@ a:hover {
     .tabs { width:100%; }
     .tab { display:inline-block; }
 }
+
+.steps {
+	margin:8px 20px;
+	padding:8px 0px;
+	border-top: 2px solid lightblue;
+	border-bottom:2px solid lightblue;
+}
