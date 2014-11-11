@@ -1,17 +1,19 @@
-html {
-	/* background-image:url(/images/content_bg2.jpg) */
 
+html {
+    height: 100%;
 }
 
 body {
-     font-family:Arial, Helvetica, sans-serif;
-     font-size:0.9em;
+    height: 100%;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:0.9em;
 }
 
 p {
     text-indent:1.8em;
     word-wrap:break-word;
 }
+
 .note {
     padding:8px 8px;
     text-indent:0em;
@@ -142,19 +144,23 @@ a:hover {
 }
 @media screen and (min-width:601px) {
     .left-aside{
-	margin: -8px 0px 0px -8px;
-	padding: 120px 0px;
-	width:19%;
-	float:left;
+
+
+	position: fixed;
+	width:24%;
+	min-width:88px
+	height:100%;
+	
 	border: 1px solid lightgray;
 	border-radius: 2px;
+	
     }
 
     .logo {
 	/* position: relative; */
 	margin:auto;
-	width:120px;
-	height:120px;
+	width: 120px;
+	height: 120px;
 
 	background-color:lightgray;
 	border-radius: 100%;
@@ -163,14 +169,16 @@ a:hover {
     .tabs { width:120px; }
 	
     .content {
-	width:60%;
-	float:left;
+	position:absolute;
+	right:0;
+	width:76%;
+
     }
 
     .content-wapper {
-	width:96%;
+	width:90%;
 	height:100%;
-	margin:20px 20px;
+	margin:20px 40px;
     }
 
     .right-aside{
