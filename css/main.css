@@ -1,4 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 
+.content {
+    margin: 8px 0px;
+    padding: 8px 8px;
+}
 html {
     height: 100%;
 }
@@ -9,7 +17,11 @@ body {
     font-size:0.9em;
 }
 
+h3 {
+    margin: 20px 0px;
+}
 p {
+    margin: 8px 0px;
     text-indent:1.8em;
     word-wrap:break-word;
 }
@@ -144,16 +156,13 @@ a:hover {
 }
 @media screen and (min-width:601px) {
     .left-aside{
-
-
 	position: fixed;
 	width:24%;
-	min-width:88px
+	min-width:88px;
+
 	height:100%;
 	
-	border: 1px solid lightgray;
-	border-radius: 2px;
-	
+	border-right: 1px solid lightblue;
     }
 
     .logo {
@@ -172,12 +181,11 @@ a:hover {
 	position:absolute;
 	right:0;
 	width:76%;
-
+	
     }
 
     .content-wapper {
 	width:90%;
-	height:100%;
 	margin:20px 40px;
     }
 
