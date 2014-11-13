@@ -154,6 +154,17 @@ a:hover {
     text-align: center;
     display:inline-block;
 }
+.logo {
+    /* position: relative; */
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    
+    background-color:lightgray;
+    border-radius: 100%;
+}
+
+
 @media screen and (min-width:601px) {
     .left-aside{
 	position: fixed;
@@ -165,15 +176,6 @@ a:hover {
 	border-right: 1px solid lightblue;
     }
 
-    .logo {
-	/* position: relative; */
-	margin:auto;
-	width: 120px;
-	height: 120px;
-
-	background-color:lightgray;
-	border-radius: 100%;
-    }
 
     .tabs { width:120px; }
 	

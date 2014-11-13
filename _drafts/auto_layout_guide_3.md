@@ -24,4 +24,38 @@ title: Auto Layout 指南（三）
 
 使用下面的可视化格式化字符串：
 
-<pre><code>[button1]-(12)-[button2]</code></pre>
+
+{% highlight objc  %}
+[button1]-12-[button2]
+{% endhighlight %}
+
+单个连接符表示标准的间隔，所以可以表示成这样：
+
+{% highlight objective-c  %}
+[button1]-[button2]
+{% endhighlight%}
+
+视图的名字来源于 `views` 字典--这些键是你在视觉形式字符串中使用的名字，这些值对应视图对象。与人方便，`NSDictionaryOfVariableBindings` 创建一个字典，它的键对应视图变量的名字。用代码创建约束变成：
+
+{% highlight objc  %}
+NSDictionary *viewsDictionary =
+                NSDictionaryOfVariableBindings(self.button1, self.button2);
+NSArray *constraints =
+        [NSLayoutConstraint constraintsWithVisualFormat:@"[button1]-[button2]"
+                            options:0 metrics:nil views:viewsDictionary];
+{% endhighlight%}
+
+视觉形式语言更喜欢良好的可视化表达性上的完整性。尽管在实际用户界面上的大多数约束可以使用视觉形式语言，但是有一些是不可以的。长宽比是一个有用的但是不能表达的约束（例如：`imageView.width = 2 * imageView.height`）。为了创建这样的约束，可以使用：`constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:`。
+
+你也可以使用这个方法创建之前的 `[button1]-[button2]` 约束：
+
+{% highlight objc %}
+NSLayoutConstraint constraintWithItem:self.button1
+		            attribute:NSLayoutAttributeRight
+                            relatedBy:NSLayoutRelationEqual
+               		       toItem:self.button2
+                            attribute:NSLayoutAttributeLeft
+		           multiplier:1.0
+		             constant:-12.0];
+
+{% endhighlight%}
