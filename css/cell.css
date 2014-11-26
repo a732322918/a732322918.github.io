@@ -1,6 +1,7 @@
 .content-cell {
-    border-bottom:1px solid gray;
-	padding-top:8px;
+    border-bottom:1px solid #ddd;
+    padding-top:8px;
+    padding-bottom: 8px;
 }
 .content-cell p {
     text-indent:0em;
@@ -33,4 +34,11 @@
 
 .content-cell-accessory a:visited{
     color:white;
+}
+
+.content-cell-link {
+    display: inline;
+}
+.content-cell-link:hover{
+    color: blue;
 }
