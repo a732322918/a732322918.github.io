@@ -92,6 +92,7 @@ li>p {
 }
 	
 .tab:hover {
+    cursor: pointer;
     background-color:lightblue;
     color:black;
 }
@@ -102,11 +103,9 @@ li>p {
 
 .pagination {
     margin: 8px 0px;
-    border:1px solid blue;
 }
 
 .content p { line-height: 1.3;}
-
 
 .pagination p{
     text-indent: 0em;
@@ -115,8 +114,8 @@ li>p {
 
 .previous {
     display: inline-block;
-
 }
+
 .previous-disabled {
    
     height:34px;

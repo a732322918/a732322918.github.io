@@ -40,5 +40,6 @@
     display: inline;
 }
 .content-cell-link:hover{
+    cursor: pointer;
     color: blue;
 }
