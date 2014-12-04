@@ -4,41 +4,28 @@
   {% include head.html %}
 
   <body>
-    <div class="container">
-      	<div class="left-aside">
-	  <div class="logo">
-		<img class="logo" src="/images/logo.png" />
-	  </div>
-	  
-	  <div class="tabs">
-		
-		{% for tab in site.data.tabs %}	
 
-		<div class="tab" onclick="location='{{ tab.url }}'">
-		
-		{{ tab.title }}
-		
-		</div>
-				
-		
-		{% endfor %}
-	  </div>
-	  
-	</div>
+    <div class="navigation-bar">
+      <div></div>
+      <div class="nav-items">
+	<ul>
+	  {% for tab in site.data.tabs %}
+	  <li><a href="{{ tab.url }}"> {{ tab.title }} </a></li>
+	  {% endfor %}
+        </ul>
+      </div>
+    </div>
 
-	<div class="right-aside"></div>
-	
-	<div class="content">
+    </div>
+    
+    <div class="content">
 		
-		<div class="content-wapper">
-		  {{ content }}
-		</div>
+      <div class="content-wrapper">
+	{{ content }}
+      </div>
 		
-	</div>
+    </div>
 
-	<div class="footer"></div>
-
-    </div>    
   </body>
 
 </html>

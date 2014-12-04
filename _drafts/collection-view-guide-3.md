@@ -99,6 +99,13 @@ __以编码的方式配置补充视图__。使用方法`registerClass:forSupplem
 
 ### 出列和配置单元格及视图
 
+当你的数据源对象被集合视图询问时，它负责提供单元格和补充视图。协议`UICollectionViewDataSource`为了这个目的提供两个方法：`collectionView:cellForItemAtIndexPath:`和`collectionView:viewForSupplementaryElementOfKind:atIndexPath:`。因为单元格是集合视图必须的元素，所以你的数据源必须实现方法`collectionView:cellForItemAtIndexPath:`，但是方法`collectionView:viewForSupplementaryElementOfKind:atIndexPath: `是可选的并且依赖于正在使用布局的类型。在两种情况下，实现这些方法的模式：
+
+1. 使用方法`dequeueReusableCellWithReuseIdentifier:forIndexPath:`或`dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:`出列合适类型的单元格或视图。
+2. 在制定的索引路径上使用数据配置这些视图。
+3. 返回视图。
+
+
 
 ### 插入、删除和移动区段和项目
 
