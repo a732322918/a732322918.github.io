@@ -105,9 +105,49 @@ __以编码的方式配置补充视图__。使用方法`registerClass:forSupplem
 2. 在制定的索引路径上使用数据配置这些视图。
 3. 返回视图。
 
+设计的出列的处理过程解除你自己创建单元格或视图的责任。只要之前你注册一个单元格或视图，出列的方法保证不会返回`nil`。如果在重用队列上没有给定类型的单元格或视图，出列方法使用你的`storyboard`或使用你注册的类或`nib`文件简单地创建。
 
+从出列处理返回给你的单元格应该是原始的状态并且准备被新数据配置。对于必须被创建的单元格或视图，出列处理使用正常的过程创建和初始化它 ---- 通过从`storyboard`或`nib`文件加载或者通过使用方法`initWithFrame:`创建一个新的实例并初始化它。相反地，一个项目不是从智能板创建而是从重用队列获取的，它可能从之前的用途包含数据。在这种情况下，出列方法调用项目的`prepareForReuse`方法，给项目一个把自身返回到原始状态的机会。当你实现一个自定义单元格或视图类时，你可以覆写这个方法来重设属性到默认值并执行其它额外的清除。
+
+在你的数据源出列视图，它使用新数据配置这个视图。你可以使用传递到你的数据源方法的索引路径来定位适当的数据对象然后应用这个数据对象到视图。在你配置视图之后，从你的方法中返回它，那么你完成了你的工作。示例代码如下：
+
+{% highlight objc %}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+   MyCustomCell* newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:MyCellID
+                                                                          forIndexPath:indexPath];
+ 
+   newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
+   return newCell;
+}
+{% endhighlight %}
+
+<div class="note"><code>Note:</code>当从你的数据源返回视图，总是返回一个可用的视图。返回<code>nil</code>，甚至其它原因而要求视图不应该展示，引起一个断言并且因为布局对象期望从那些方法返回可用的视图所以你的程序终止。</div>
 
 ### 插入、删除和移动区段和项目
+
+插入，删除或移动单个部分或项目，请按照下列步骤：
+
+1. 在你的数据源对象更新数据。
+2. 调用集合视图的合适的方法来插入或删除单个部分或项目。
+
+在通知你的集合视图任何改变之前，更新你的数据源是至关重要的。集合视图假定你的数据源包含当前正确的数据。如果不是包含正确的数据，集合视图可能从你的数据源收到错误的数据集合或者访问的项目并不在那儿并且你的程序崩溃。
+
+当你以编码的方式添加，删除或移动单个项目，集合视图的方法自动创建动画来反应这些改变。如果你想一起动画多个改变，这样，你必须执行所有的插入，删除或移动在一个块中调用并把这个块传到方法`performBatchUpdates:completion:`。这个批更新处理同时动画所有的改变并且你可以随意地在同一个块混合调用插入，删除或移动项目。
+
+示例代码如下：
+{% highlight objc %}
+[self.collectionView performBatchUpdates:^{
+   NSArray* itemPaths = [self.collectionView indexPathsForSelectedItems];
+ 
+   // Delete the items from the data source.
+   [self deleteItemsFromDataSourceAtIndexPaths:itemPaths];
+ 
+   // Now delete the items from the collection view.
+   [self.collectionView deleteItemsAtIndexPaths:tempArray];
+} completion:nil];
+
+{% endhighlight %}
 
 ### 管理选中和高亮的视觉状态
 
