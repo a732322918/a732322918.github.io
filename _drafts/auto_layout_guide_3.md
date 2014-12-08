@@ -20,7 +20,7 @@ title: Auto Layout 指南（三）
 
 例如，你可能想表示两个按钮之间的约束：
 
-<img class="sample-img" src="/images/autolayout/auto_layout_7.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_7.png"></div>
 
 使用下面的可视化格式化字符串：
 

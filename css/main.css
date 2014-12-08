@@ -20,13 +20,13 @@ body {
     width: 100%;
     height: 44px;
     /*    background-color: rgba(87, 127, 212, 1);*/
-    background-color:white;
+    background-color:rgba(247, 247, 247, 1);
     border-bottom: 1px solid gray;
 }
 
 .nav-items {
 
-    margin-right: auto;
+    margin: auto;
     text-align: center;
    
     height: 44px;
@@ -55,11 +55,12 @@ body {
 
 h2 {
     margin: 20px 0px;
-    border-bottom: 1px solid lightblue;
+    border-bottom: 1px solid lightgray;
     padding-bottom: 2px;
 }
 
 table {
+    border-collapse: collapse;
     border-top: 1px solid lightblue;
     border-right: 1px solid lightblue;
 }
@@ -80,11 +81,10 @@ p {
 }
 
 .note {
-    padding:8px 8px;
+    padding:8px;
     text-indent:0em;
     border: 1px solid lightblue;
     border-radius: 2px;
-    background-color: white;
     line-height: 1.5;
 }
 
@@ -94,17 +94,11 @@ p {
     text-indent:0em;
     border: 1px solid #FF9900;
     border-radius: 2px;
-    background-color: white;
 }
 
-.sample-img {
-    margin:auto;
-    max-width:90%; /* 自适应 */
-	
-    border:1px solid lightgray;
-    border-radius:2px;
-}
-
+.img-section { text-align: center;}
+.sample-img { max-width:100%; /* 自适应 */}
+.sample-img:hover { box-shadow: 2px 2px 4px gray;}
 .tabs {
     margin:8px auto;
 }
@@ -138,9 +132,11 @@ p {
 
 .content p { line-height: 1.5;}
 .content-wrapper ul, ol{
-    margin-left: 2em;
+    margin-left: 3em;
     line-height: 1.5;
+    padding-left: 6px;
 }
+.pagination ul { margin: auto; }
 .pagination p{
     text-indent: 0em;
     line-height: 34px;
@@ -155,16 +151,13 @@ p {
     height:34px;
     line-height:34px;
     color:lightgray;
-    border:1px solid lightblue;
     display:inline-block;
 }
 .disabled { border: 1px solid red; }
 .pages {
-
     display:inline-block;
-		
-    border:1px solid purple;
 }
+
 li.page {
     display: inline-block;
     width:34px;
@@ -172,22 +165,34 @@ li.page {
     line-height: 34px;
     text-align: center;
     list-style-type: none;
+    background-color: lightgray;
+    border-radius: 4px;
 }
 
+li.page a {
+    text-decoration: none;
+    color: black;
+}
+li.page:hover {
+    color: white;
+    background-color: lightseagreen;
+}
+li.page a:hover {
+    color: white;
+}
 .next {
     display: inline-block;
 }
 .next-disabled {
-    
-    border:1px solid lightblue;
     display:inline-block;
 }
 .current-page {
-    background-color: darkgray;
+    background-color: lightseagreen;
     color: white;
     width: 34px;
     text-align: center;
     display:inline-block;
+    border-radius: 4px;
 }
 .logo {
     /* position: relative; */
@@ -205,12 +210,15 @@ li.page {
     -webkit-filter: blur(0);
 }
 @media screen and (min-width:601px) {
-	
+
+    .nav-items {
+	margin-left:20%;
+    }
     .content {
 	margin:20px auto;
 	width:60%;
-/*	border: 1px solid gray;
-	border-radius:4px;*/
+	border: 1px solid #ddd;
+	box-shadow:2px 2px 4px #ddd;
     }
 
     .content-wapper {

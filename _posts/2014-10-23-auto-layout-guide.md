@@ -18,7 +18,7 @@ category: 翻译
 
 `Auto Layout`从`Xcode5`开始内建在`IB（Interface Builder）`。在`iOS`和`OS X`上同样适用。
 
-<img class="sample-img" src="/images/autolayout/autolayout_1.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/autolayout_1.png"></div>
 
 ### `Auto Layout` 概念
 **`constraint`(约束)**是`Auto Layout`的基本建筑块。`constraint`是用来表达你的界面元素之间的规则；例如，你可以创建一个`constraint`用来指定一个元素的宽，或者它与另一个元素之间的水平距离。通过创建、移除或者改变`constraints`来影响界面的布局。

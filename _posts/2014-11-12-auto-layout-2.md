@@ -29,26 +29,26 @@ title: Auto Layout 指南（二）
 你可以从一个元素 `Control-Drag` 到它自己，到它的包含者，或者到另一个元素。取决于你拖拽向的什么以及拖拽的方向，`Auto Layout`
 适当地限制约束的可能性。例如，如果你从一个元素水平向右拖拽向它的包含者，你有两个选项：固定它到包含者的尾空间；垂直居中。
 
-<img class="sample-img" src="/images/autolayout/auto_layout_2.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_2.png"></div>
 
-<p class="tip"><strong>Tip: </strong>从 <code>Control-Drag</code> 弹出的菜单中多选，按着 <code>Command</code> 或 <code>Shift</code> 键。</p>
+<div class="tip"><strong>Tip: </strong>从 <code>Control-Drag</code> 弹出的菜单中多选，按着 <code>Command</code> 或 <code>Shift</code> 键。</div>
 
 ### 通过 `Align` 和 `Pin` 菜单添加约束
 
 你也可以使用在 `IB` 画布中的 __`Auto Layout menu`__ 来添加约束。
 
-<img class="sample-img" src="/images/autolayout/auto_layout_3.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_3.png"></div>
 
 除了为了对齐或者调节间隔而添加约束，你还可以使用这个菜单来解决布局问题，并且决定约束改变行为。
 
-<img class="sample-img" src="/images/autolayout/auto_layout_4.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_4.png"></div>
 
 - __对齐`（Align）`__。创建对齐约束，像把一个视图置于它的容器中心，或者两个视图的左边对齐。
 - __固定`（Pin）`__。创建间距约束，像定义一个视图的高，或者指定它距离另一个视图的水平距离。
 - __问题`（Issues）`__。通过添加或重新设计基于建议的约束来解决布局上的问题。
 - __调整`（Resizing）`__。指定调整如何影响约束。
 
-<img class="sample-img" src="/images/autolayout/auto_layout_5.png">
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_5.png"></div>
 
 如果你只选择了一个约束，那么需要多个元素的约束选项是被禁止使用的。
 
@@ -56,7 +56,7 @@ title: Auto Layout 指南（二）
 	<p><strong>通过对齐或固定菜单添加约束</strong></p>
 	<ol>
 		<li>选中恰当的约束旁边的复选框。<br />为了选择“到最近的邻居的约束”，选中元素的适当的边所对应的红色的约束。<br />
-		<img class="sample-img" src="/images/autolayout/auto_layout_6.png"><br />如果你需要创建的一个跟其它视图（不是最近的邻居）相关的约束，点击文本框中的黑色下三角显示附件其它视图的下来菜单。</li>
+		<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_6.png"></div><br />如果你需要创建的一个跟其它视图（不是最近的邻居）相关的约束，点击文本框中的黑色下三角显示附件其它视图的下来菜单。</li>
 		<li>输入相应的常量。</li>
 		<li>
 			点击按钮来创建约束。

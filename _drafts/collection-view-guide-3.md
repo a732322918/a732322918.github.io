@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 设计数据源和代理
+title: 集合视图编程指南(三)
 ---
 
 翻译自[Collection View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/CreatingCellsandViews/CreatingCellsandViews.html#//apple_ref/doc/uid/TP40012334-CH7-SW1)
@@ -151,7 +151,97 @@ __以编码的方式配置补充视图__。使用方法`registerClass:forSupplem
 
 ### 管理选中和高亮的视觉状态
 
+集合视图默认支持单个项目选中并且可以配置支持多个项目选中或禁用整个区段。集合视图发现在它范围内的点击并且高亮或选中相应的对应单元格。在大多数情况下，集合视图只修改一个单元格的属性来指示它是选中的或高亮的；它并不改变你的单元格的视觉外观，除了一种情况。这种情况就是，如果单元格`selectedBackgroundView`属性包含可用的视图，当单元格被选中或高亮时集合视图显示那个视图。
+
+下面的代码可以被整合到你的实现定制单元格的代码中以帮助高亮和选中状态的外观。单元格的属性`backgroundView`当视图第一次被加载和视图不是高亮也不是选中状态时的默认视图。无论单元格是高亮还是被选中，属性`selectedBackgroundView`替换默认的背景视图。在下面的情况下，当单元格被选中或高亮时，单元格的背景颜色从红色变成白色。
+
+{% highlight objc %}
+UIView* backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+backgroundView.backgroundColor = [UIColor redColor];
+self.backgroundView = backgroundView;
+ 
+UIView* selectedBGView = [[UIView alloc] initWithFrame:self.bounds];
+selectedBGView.backgroundColor = [UIColor whiteColor];
+self.selectedBackgroundView = selectedBGView;
+{% endhighlight %}
+
+集合视图的代理为集合视图提供下列方法帮助高亮和选中：
+
++ `collectionView:shouldSelectItemAtIndexPath:`
++ `collectionView:shouldDeselectItemAtIndexPath:`
++ `collectionView:didSelectItemAtIndexPath:`
++ `collectionView:didDeselectItemAtIndexPath:`
++ `collectionView:shouldHighlightItemAtIndexPath:`
++ `collectionView:didHighlightItemAtIndexPath:`
++ `collectionView:didUnhighlightItemAtIndexPath:`
+
+这些方法为你提供许多机会来调整你的集合视图的高亮/选中的行为到你确切想要的规格。
+
+例如，如果你更喜欢自己画单元格的选中状态，你可以留下`selectedBackgroundView`设置为`nil`并且使用你的代理对象应用其它视觉改变到单元格。你可能在方法`collectionView:didSelectItemAtIndexPath:`中应用视觉改变，在方法`collectionView:didDeselectItemAtIndexPath:`移除它们。
+
+如果你更喜欢自己画高亮状态，你可以覆写`collectionView:didHighlightItemAtIndexPath:`和`collectionView:didUnhighlightItemAtIndexPath:`代理方法并且使用它们应用你的高亮。如果你已在`selectedBackgroundView`属性指定了一个视图，你应该对单元格的`contentView`做一些改变来保证你的改变是可见的。如下面的代码：
+
+{% highlight objc %}
+
+- (void)collectionView:(UICollectionView *)colView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = [UIColor blueColor];
+}
+ 
+- (void)collectionView:(UICollectionView *)colView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = nil;
+}
+
+{% endhighlight %}
+
+在高亮状态和选中状态之间有微妙的但是重要的区别。高亮状态是一个过渡状态，当用户的手指仍在触摸设备的同时，你可以应用视觉高亮到单元格。当集合视图跟踪单元格上的触摸事件时这个状态设置为`YES`。当触摸事件停止，高亮状态返回到`NO`。相反地，选中状态在一系列触摸事件结束改变 --- 特别地，当那么触摸事件只是用户尝试选中单元格。
+
+下图阐明当用户触摸一个未经选中的单元格时发生的一系列步骤。初始触摸按下事件引起集合视图改变单元格的高亮状态为`YES`，尽管这么做不会自动改变单元格的外观。如果最后的触摸离开事件发生在这个单元格，它的高亮状态返回`NO`并且集合视图改变选中状态到`YES`。当用户改变选中状态，集合视图显示单元格的`selectedBackgroundView`属性，但是，这是集合视图改变单元格的唯一视觉改变，其它视觉改变必须被你的代理对象来做。
+
+<div class="img-section"><img class="sample-img" src="/images/guide/collection_view_guide_5.png"></div>
+
+用户或是选择或是取消选择一个单元格，单元格的选中状态总是最后改变的事物。点击单元格总是导致首先改变单元格的高亮状态。只有在点击序列事件结束和任何在序列事件中移除高亮状态之后，单元格的选中状态才会改变。当设计你的单元格时，你应该保证你的高亮状态和选中状态的视觉外观在意想不到的的情况下不冲突。
+
 ### 在单元格上显示编辑菜单
+
+当用户在单元格上执行一个长按手势，集合视图视图为该单元格展示编辑菜单。编辑菜单可以用来剪切、复制和粘贴集合视图中的单元格。在编辑菜单被展示之前必须满足以下几个条件：
+
++ 代理必须实现与处理动作有关的三个方法：<br>`collectionView:shouldShowMenuForItemAtIndexPath:` <br >`collectionView:canPerformAction:forItemAtIndexPath:withSender:` <br >`collectionView:performAction:forItemAtIndexPath:withSender:`
++ 方法`collectionView:shouldShowMenuForItemAtIndexPath:`必须为指示的单元格返回`YES`。
++ 方法`collectionView:canPerformAction:forItemAtIndexPath:withSender:`至少为一个期望的动作返回`YES`。集合视图支持下面的动作: <br>`cut:`<br>`copy:`<br>`paste:`
+
+如果这些条件被满足并且用户从编辑菜单选中一个动作，集合视图调用代理的方法`collectionView:performAction:forItemAtIndexPath:withSender:`在指示的项目上执行动作。
+
+下面代码展示怎样阻止编辑菜单的一个项目显示：
+
+在编辑菜单有选择地禁用动作
+{% highlight objc %}
+- (BOOL)collectionView:(UICollectionView *)collectionView
+        canPerformAction:(SEL)action
+        forItemAtIndexPath:(NSIndexPath *)indexPath
+        withSender:(id)sender {
+   // Support only copying and pasting of cells.
+   if ([NSStringFromSelector(action) isEqualToString:@"copy:"]
+      || [NSStringFromSelector(action) isEqualToString:@"paste:"])
+      return YES;
+ 
+   // Prevent all other actions.
+   return NO;
+}
+{% endhighlight %}
 
 ### 布局之间转换
 
+在布局之间变换最简单的方式是使用方法`setCollectionViewLayout:animated:`。然而，如果你需要控制变换或者想要变换变得可交互的，那么使用`UICollectionViewTransitionLayout`对象。
+
+类`UICollectionViewTransitionLayout`是布局转换到新布局时被安装为集合视图布局对象的一种特殊类型。有了转换布局对象，你可以使对象遵循非直线路径，使用不同的时序算法，或根据传入的触摸事件移动。标准类提供线性转换到新布局，但是像`UICollectionViewLayout`类，`UICollectionViewTransitionLayout`类可以被子类化来创建任何期望的效果。在此过程中，你需要实现跟创建定制布局时相同的方法并且允许你的实现适应用户的输入，最常见的是手势识别。
+
+`UICollectionViewLayout`为跟踪布局之间的转换提供几个方法。`UICollectionViewTransitionLayout`通过`transitionProgress`属性跟踪转换的完成度。当转换发生，你的代码周期性更新这个属性来指示转换的完成百分比。例如，`UICollectinViewTransitionLayout`类跟像手势识别器那样可以在布局转换使用的对象一起工作，类`UICollectionViewTransitionLayout`为跟踪布局相关的值提供两个方法：`updateValue:forAnimatedKey:`和`valueForAnimatedKey:`。这些方法和布局重要信息一起工作，跟踪在转换过程中你可以设置和改变的特别的浮点值。例如，如果你使用捏合手势来转换布局，你可以使用这些方法告诉转换布局对象在偏移量为何值时从一个到另一个。
+
+使用`UICollectionViewTransitionLayout`的步骤如下:
+
+1. 使用方法`initWithCurrentLayout:nextLayout:`创建标准类或你自定义类。
+2. 周期性修改`transitionProgress`属性的值。在改变`transitionProgress`值之后，不要忘记使用集合视图的`invalidLayout`方法来使布局无效。
+3. 在你的集合视图代理中实现方法`collectionView:transitionLayoutForOldLayout:newLayout:`并返回你的转换布局对象。
+4. 可选地使用方法`updateValue:forAnimatedKey:`指示布局相关的值。固定值是`0`。
