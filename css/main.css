@@ -98,7 +98,7 @@ p {
 
 .img-section { text-align: center;}
 .sample-img { max-width:100%; /* 自适应 */}
-.sample-img:hover { box-shadow: 2px 2px 4px gray;}
+.sample-img:hover { box-shadow: 0px 0px 4px gray;}
 .tabs {
     margin:8px auto;
 }
@@ -134,6 +134,7 @@ p {
 .pagination-wrapper {
     margin: 8px auto;
     padding: 8px 12px;
+    font-size: 12px;
 }
 
 .previous-disabled {
