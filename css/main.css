@@ -8,56 +8,54 @@ html body {
 }
 
 body {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,helvetica,sans-serif,"Microsoft Yahei";    
     font-size:1em;
     background-color: rgba(232, 228, 228, 0.28);
 }
 
 .navigation-bar {
-    position: fixed;
+   /* position: fixed;*/
     top: 0;
     z-index: 1000;
     width: 100%;
     height: 44px;
-    /*    background-color: rgba(87, 127, 212, 1);*/
-    background-color:rgba(247, 247, 247, 1);
+    filter: blur(10px);
+    background-color: rgba(87, 127, 212, 0.95);
+/*    background-color:rgba(247, 247, 247, 1);*/
     border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
 }
 
 .nav-items {
 
-    margin: auto;
-    text-align: center;
+/*    margin: auto;
+    text-align: center;*/
    
     height: 44px;
     width: 300px;
 }
 .navigation-bar li{
-    display:inline-block;
+    display:inline;
     line-height: 44px;
-    width:80px;
 }
+
 .navigation-bar li a {
-    color: black;
+    color: white;
+    padding: 14px;
     text-decoration: none;
 }
 .navigation-bar li a:hover {
-    text-decoration: underline;
-    text-decoration-color: black;
+    color: lightgray;
 }
 
 .content {
-    top:44px;
+    top:0px;
     padding: 20px;
     position: relative;
     background-color: white;
 }
 
-h2 {
-    margin: 20px 0px;
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 2px;
-}
+/* table 相关 */
 
 table {
     border-collapse: collapse;
@@ -70,6 +68,11 @@ td, th {
     border-left: 1px solid lightblue;
 }
 
+h2 {
+    margin: 20px 0px;
+    padding-bottom: 2px;
+}
+
 h3 {
     margin: 20px 0px;
 }
@@ -80,6 +83,8 @@ p {
     word-wrap:break-word;
 }
 
+/* 提醒 */
+
 .note {
     padding:8px;
     text-indent:0em;
@@ -88,6 +93,7 @@ p {
     line-height: 1.5;
 }
 
+/* 提示 */
 
 .tip {
     padding:8px 8px;
@@ -96,9 +102,12 @@ p {
     border-radius: 2px;
 }
 
+/* 图片相关 */
+
 .img-section { text-align: center;}
 .sample-img { max-width:100%; /* 自适应 */}
 .sample-img:hover { box-shadow: 0px 0px 4px gray;}
+
 .tabs {
     margin:8px auto;
 }
@@ -125,6 +134,8 @@ p {
     background-color:lightblue;
     color:black;
 }
+
+/* 页码相关 */
 
 .pagination {
     margin: 8px 0px 20px 0px;
@@ -155,6 +166,7 @@ p {
     background-color: rgba(87, 127, 212, 1);
     border:1px solid rgba(87,127, 212, 1);
 }
+
 a.page {  
     float: left;
     margin-left:-1px;
@@ -225,11 +237,12 @@ a.previous {
 @media screen and (min-width:601px) {
 
     .nav-items {
-	margin-left:20%;
+	margin-left:15%;
     }
+    
     .content {
 	margin:20px auto;
-	width:60%;
+	width:65%;
 	border: 1px solid #ddd;
 	box-shadow:2px 2px 4px #ddd;
     }
