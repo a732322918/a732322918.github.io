@@ -6,9 +6,16 @@ layout: default
 
 <div class="content-cell">
 
-    <code><p class="content-cell-subtitle">{{ post.date | date: "%F" }}</p>
-    <h3 class="content-cell-title"><div class="content-cell-link" onclick="location='{{ post.url }}'">{{ post.title }}</div></h3>
-    <br />
+    <code>
+        <p class="content-cell-subtitle">
+            {{ post.date | date: "%F" }}
+        </p>
+        <h3 class="content-cell-title">
+            <div class="content-cell-link" onclick="location='{{ post.url }}'">
+                {{ post.title }}
+            </div>
+        </h3>
+        <br />
     </code>
 </div>
 

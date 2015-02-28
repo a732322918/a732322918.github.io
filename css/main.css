@@ -21,7 +21,7 @@ body {
     height: 44px;
     /*    background-color: rgba(87, 127, 212, 1);*/
     background-color:rgba(247, 247, 247, 1);
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 .nav-items {
@@ -133,7 +133,7 @@ p {
 
 .pagination-wrapper {
     margin: 8px auto;
-    padding: 8px 12px;
+    padding: 8px 0px;
     font-size: 12px;
 }
 
@@ -199,7 +199,7 @@ a.previous {
     border-bottom-right-radius:4px;
 }
 
-.content p { line-height: 1.5;}
+.content p { line-height: 1.65;}
 .content-wrapper ul, ol{
     margin-left: 3em;
     line-height: 1.5;
