@@ -1,0 +1,814 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="翻译,AutoLayout," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
+自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
+自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动布局指南">
+<meta property="og:url" content="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/index.html">
+<meta property="og:site_name" content="知行">
+<meta property="og:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
+自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
+自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/autolayout_1.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_2.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_3.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_4.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_5.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_6.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_7.png">
+<meta property="og:updated_time" content="2016-08-02T03:43:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自动布局指南">
+<meta name="twitter:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
+自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
+自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta name="twitter:image" content="http://blog.shujiong.top/images/autolayout/autolayout_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/"/>
+
+
+
+
+
+  <title> 自动布局指南 | 知行 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">知行</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">知是行之始，行是知之成</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/category" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Joseph Fu">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自动布局指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-28T15:50:25+08:00">
+                2015-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/02/28/2015-02-28-auto-layout-guide-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/28/2015-02-28-auto-layout-guide-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Note:</strong>到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的<a href="https://developer.apple.com/library/prerelease/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html" target="_blank" rel="external">传送门</a> <hr><br>本文翻译自官方文档</p>
+<h3 id="自动布局-Auto-Layout-介绍"><a href="#自动布局-Auto-Layout-介绍" class="headerlink" title="自动布局(Auto Layout)介绍"></a>自动布局(<code>Auto Layout</code>)介绍</h3><p>对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。</p>
+<p>自动布局从<code>Xcode5</code>开始内建在<code>IB（Interface Builder）</code>。在<code>iOS</code>和<code>OS X</code>上同样适用。</p>
+<a id="more"></a>
+<p><img src="/images/autolayout/autolayout_1.png" alt="Auto layout"></p>
+<h3 id="自动布局概念"><a href="#自动布局概念" class="headerlink" title="自动布局概念"></a>自动布局概念</h3><p><strong>约束（<code>constraint</code>）</strong>是自动布局的基本建筑块。约束是用来表达你的界面元素之间的规则；例如，你可以创建一个约束用来指定一个元素的宽，或者它与另一个元素之间的水平距离。通过创建、移除或者改变约束来影响界面的布局。</p>
+<p>当计算界面元素的运行时位置，自动布局系统同时考虑所有的约束，通过这样的方式设置元素位置以最佳满足所有的约束。</p>
+<h3 id="约束基础"><a href="#约束基础" class="headerlink" title="约束基础"></a>约束基础</h3><p>你可以认为一个约束是一个人们描述语句的数学上的表现。例如，定义一个<code>button</code>的位置，你可能这样描述<code>button</code>的左边距离包含该按钮视图的左边20点。更正式地讲，这句话转换为：<code>button.left = (container.left + 20)</code>，这就对应表达式 <code>y = m * x + b</code>：</p>
+<ul>
+<li><code>y</code> 和 <code>x</code> 是这些视图的属性</li>
+<li><code>m</code> 和 <code>b</code> 是浮点类型的值</li>
+</ul>
+<p>一个 <em>属性</em> 可以是 <code>left</code>，<code>right</code>，<code>top</code>，<code>bottom</code>，<code>leading</code>，<code>trailing</code>，<code>width</code>，<code>height</code>，<code>centerX</code>，<code>centerY</code> 和 <code>baseline</code> 中的一个。</p>
+<p>属性 <code>leading</code> 和 <code>trailng</code> 在像中文这样从左到右书写的语言中，它们跟 <code>left</code> 和 <code>right</code> 等同，但在从右到左书写的语言跟 <code>right</code> 和 <code>left</code> 等同。当你创建约束时，默认使用 <code>leading</code> 和 <code>trailng</code>。如果约束跟语言有关，则使用 <code>leading</code> 和 <code>trailng</code>；若否，则使用 <code>left</code> 和 <code>right</code>。</p>
+<p>约束有其它属性可以设置：</p>
+<ul>
+<li><strong>常量(<code>Constant value</code>)</strong>。约束的物理上的尺寸或偏移，以<strong>点</strong>为单位。</li>
+<li><strong>关系(<code>Relation</code>)</strong>。自动布局不仅仅只支持视图属性的固定值，你还可以使用关系和不等式，例如，一个视图 <code>width &gt;= 20</code>，或者 <code>textView.leading &gt;= superView.leading + 20</code>。</li>
+<li><strong>优先级(<code>Priority level</code>)</strong>。约束有优先级。优先满足一个有高优先级的约束。默认的优先级是必须（<code>NSLayoutPriorityRequired</code>），它的意思就是必须正确地满足这个约束。布局系统尽可能满足一个可选约束，甚至不能完成。<br> <br>有了优先级，你就可能表达有用的条件控制行为。</li>
+</ul>
+<p>约束是累计的，并不会相互覆盖。如果已经存在一个约束，你设置另一个相同类型的约束，并不会覆盖之前的那个。例如，设置第二个跟视图的宽有关的约束不会移除或改变第一个跟视图的宽有关的约束–你需要手动移除第一个约束。</p>
+<p>约束能跨越视图层次，不过有些限制条件。</p>
+<p>如果视图层次包含一个自定义实现了 <code>UIView</code> 的 <code>layoutSubview</code> 方法的视图，那么你就不能设置一个跨越视图层次的约束。也不能跨越那些有 <code>bounds</code> 变换的视图（像 <code>scrollview</code> ）。你可以认为这些视图是障碍–不能通过。</p>
+<h3 id="有着内在的内容尺寸"><a href="#有着内在的内容尺寸" class="headerlink" title="有着内在的内容尺寸"></a>有着内在的内容尺寸</h3><p>像 <code>buttons</code> 这样的叶级视图通常比定位它们的代码更了解它们应该是什么样的大小。一个视图包含一些内容，而布局系统不能自然地了解，但是通过内在的内容尺寸交流，它告诉布局系统那些内容多大。</p>
+<p>对于元素，例如 <code>text</code> 标签，你通常应当设置该元素变成它的内在的尺寸（选择 <code>Editor &gt; Size To Fit Content</code> ）。这意味着该元素会随着不同语言的不同内容适当地放大或缩放。</p>
+<h3 id="应用架构"><a href="#应用架构" class="headerlink" title="应用架构"></a>应用架构</h3><p><code>Auto Layout</code> 架构分发控制器和视图之间的布局责任。视图变得更自我组织，而不是写一个全知的控制器对于一个给定的几何结构来计算视图需要到哪儿。这种方式减少了控制器的逻辑上的复杂性，并且可以更容易地重新设计视图，而不需要改变相应的布局代码。</p>
+<p>你可能仍然需要一个控制器在运行时添加、移除或者调整约束。</p>
+<h3 id="控制器的角色"><a href="#控制器的角色" class="headerlink" title="控制器的角色"></a>控制器的角色</h3><p>虽然一个视图指定它的内在内容尺寸，视图的用户说，这是多么的重要。例如，默认，一个 <code>button</code>:</p>
+<ul>
+<li>强烈希望在竖直方向上紧挨它的内容（按钮真滴应该是它们的天然高度）。</li>
+<li>不强求在水平方向上紧挨它的内容（在标题和边缘之间有额外的填充是可以接受的）。</li>
+<li>强烈抵抗在两个方向上的压缩或裁剪。</li>
+</ul>
+<p>例如，在含有彼此相邻的两个按钮的用户界面，如果有额外的空间，它依赖于控制器来决定这些按钮怎样增长。应当只是其中一个按钮增长？应当两个相同的增长？或者应该按比例地？如果没有足够的空间而不压缩或裁剪的内容，以适应这两个按钮，应当其中一个按钮首先被裁断？或者两者一样？等等。</p>
+<p>你使用 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentHuggingPriority:forAxis:" target="_blank" rel="external"><code>setContentHuggingPriority:forAxis:</code></a> 和 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentCompressionResistancePriority:forAxis:" target="_blank" rel="external"><code>setContentCompressionResistancePriority:forAxis:</code></a> 设置一个 <code>UIView</code> 的实例。默认地，视图的有一个值，要么 <code>NSLayoutPriorityDefaultHigh</code>，要么 <code>NSLayoutPriorityDefaultLow</code>。</p>
+<hr>
+<h3 id="在-IB-中使用约束"><a href="#在-IB-中使用约束" class="headerlink" title="在 IB 中使用约束"></a>在 <code>IB</code> 中使用约束</h3><p>最简单的添加、编辑或者移除约束的方式就是在 <code>IB</code> 中使用可视化布局工具。在两个视图之间 <code>Control-dragging</code> 会弹出各种窗口，使用这些窗口，你就可以简单的一次创建一个或多个约束。</p>
+<h3 id="添加约束"><a href="#添加约束" class="headerlink" title="添加约束"></a>添加约束</h3><p>当你从 <code>Object Library</code> 中拖出一个元素，并把它拖到 <code>IB</code> 中的画布，该元素开始的时候是无约束的，这是为了通过拖动附件的元素容易地制作界面原型。如果在没有添加任何约束到一个元素上时，你创建并运行，你将发现 <code>IB</code> 修理该元素的宽和高，并且相对于父视图的左上角固定位置；这意味着改变窗口的大小不会移动或改变该元素的位置。为了使你的界面正确的响应大小或方向上的改变，你需要开始添加约束。</p>
+<p class="note"><strong>Important: </strong>尽管当你创建用户界面时没有合适的约束，<code>Xcode</code> 并不会产生警告或错误，你不应当在这样的状态运行你的应用。</p>
+
+<p>依赖于你想要的精确度的级别和你想要一次添加约束的数量，有几种方式来添加约束。</p>
+<h3 id="通过-Control-Drag-添加约束"><a href="#通过-Control-Drag-添加约束" class="headerlink" title="通过 Control-Drag 添加约束"></a>通过 <code>Control-Drag</code> 添加约束</h3><p>像创建连接到 <code>IBOutlet</code> 和 <code>IBAction</code>，在画布上按住 <code>Ctrl</code> 键盘，从一个视图上拖拽，是创建一个约束最快的方式。<br>针对单个约束，当你明确知道你想要的约束的类型和你想把它放到何处，那么 <code>Control-Drag</code> 是一种快速、简洁的方式。</p>
+<p>你可以从一个元素 <code>Control-Drag</code> 到它自己，到它的包含者，或者到另一个元素。取决于你拖拽向的什么以及拖拽的方向，<code>Auto Layout</code><br>适当地限制约束的可能性。例如，如果你从一个元素水平向右拖拽向它的包含者，你有两个选项：固定它到包含者的尾空间；垂直居中。</p>
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_2.png"></div>
+
+<p class="tip"><strong>Tip: </strong>从 <code>Control-Drag</code> 弹出的菜单中多选，按着 <code>Command</code> 或 <code>Shift</code> 键。</p>
+
+<h3 id="通过-Align-和-Pin-菜单添加约束"><a href="#通过-Align-和-Pin-菜单添加约束" class="headerlink" title="通过 Align 和 Pin 菜单添加约束"></a>通过 <code>Align</code> 和 <code>Pin</code> 菜单添加约束</h3><p>你也可以使用在 <code>IB</code> 画布中的 <strong><code>Auto Layout menu</code></strong> 来添加约束。</p>
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_3.png"></div>
+
+<p>除了为了对齐或者调节间隔而添加约束，你还可以使用这个菜单来解决布局问题，并且决定约束改变行为。</p>
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_4.png"></div>
+
+<ul>
+<li><strong>对齐<code>（Align）</code></strong>。创建对齐约束，像把一个视图置于它的容器中心，或者两个视图的左边对齐。</li>
+<li><strong>固定<code>（Pin）</code></strong>。创建间距约束，像定义一个视图的高，或者指定它距离另一个视图的水平距离。</li>
+<li><strong>问题<code>（Issues）</code></strong>。通过添加或重新设计基于建议的约束来解决布局上的问题。</li>
+<li><strong>调整<code>（Resizing）</code></strong>。指定调整如何影响约束。</li>
+</ul>
+<div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_5.png"></div>
+
+<p>如果你只选择了一个约束，那么需要多个元素的约束选项是被禁止使用的。</p>
+<p></p><p><strong>通过对齐或固定菜单添加约束</strong></p> <ol> <li>选中恰当的约束旁边的复选框。<br>为了选择“到最近的邻居的约束”，选中元素的适当的边所对应的红色的约束。<br> <div class="img-section"><img class="sample-img" src="/images/autolayout/auto_layout_6.png"></div><br>如果你需要创建的一个跟其它视图（不是最近的邻居）相关的约束，点击文本框中的黑色下三角显示附件其它视图的下来菜单。</li> <li>输入相应的常量。</li> <li> 点击按钮来创建约束。<br> <ul> <li>添加约束按钮添加新的约束到选中的元素。</li> <li>添加和更新框架按添加新的约束到选中的元素，并且在你的界面上移动元素位置以尽可能的满足每个约束。</li> </ul> <p class="note"> <strong>Note: </strong>每次点击这个两个按钮中一个或两个都是添加新的约束，并不是编辑已存在的约束。 </p> </li> </ol><p></p>
+<h3 id="添加缺失的或建议的约束"><a href="#添加缺失的或建议的约束" class="headerlink" title="添加缺失的或建议的约束"></a>添加缺失的或建议的约束</h3><p>如果你需要一个布局上的起点或者需要快速地做许多改变，那么可以使用“问题菜单”来添加约束。</p>
+<p>如果你需要添加大量的约束来描述你的界面布局，并且不想每次只添加一个约束，可以选择 <code>Issues -&gt; Add Missing Constraints</code> 来添加清楚的约束集合。这个命令基于事物的分布位置进行推断约束。</p>
+<p>如果你需要没有错误滴恢复一系列的约束，或者你只是想重新开始，可以选择 <code>Issues -&gt; Reset to Suggested Constraints</code> 来移除错误的约束并添加清楚的约束集合。这个命令等同于 <code>Clear Constraints</code> 然后 <code>Add Missing Constraints</code>。</p>
+<h3 id="编辑约束"><a href="#编辑约束" class="headerlink" title="编辑约束"></a>编辑约束</h3><p>你可以改变约束的常量、关系和优先级。你可以在画布上双击约束并且编辑值，或者选中约束并使用属性检查器。然而，你不能改变约束的类型。</p>
+<h3 id="删除约束"><a href="#删除约束" class="headerlink" title="删除约束"></a>删除约束</h3><p>选中删除。</p>
+<h3 id="以编程方式使用自动布局"><a href="#以编程方式使用自动布局" class="headerlink" title="以编程方式使用自动布局"></a>以编程方式使用自动布局</h3><p>尽管界面生成器为使用自动布局提供一个方便的可视化界面，但是你也可以通过代码创建、添加、移除和调整约束。例如，如果你在<br>运行时添加或移除视图，你将需要以编程的方式添加约束来保证你的界面正确地响应方向或大小的改变。</p>
+<h3 id="编程创建约束"><a href="#编程创建约束" class="headerlink" title="编程创建约束"></a>编程创建约束</h3><p>使用<code>NSLayoutConstraint</code>的实例表示约束。通常使用<code>constraintsWithVisualFormat:options:metrics:views:</code>来创建约束。</p>
+<p>这个方法的第一个问题，“可视化格式化字符串(<code>visual format string</code>)”，为你想要描述的布局提供一个可视化陈述。可视化格式化字符串被设计的尽可能地可读；<br>一个视图在中括号中表示，视图之间的一个连接使用连接符表示（或者使用被视图分隔的距离的数值分开的两个连接符）。</p>
+<p>例如，你可能想表示两个按钮之间的约束：</p>
+<p><img class="sample-img" src="/images/autolayout/auto_layout_7.png"></p>
+<p>使用下面的可视化格式化字符串：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[button1]<span class="number">-12</span>-[button2]</span><br></pre></td></tr></table></figure>
+<p>单个连接符表示标准的间隔，所以可以表示成这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[button1]-[button2]</span><br></pre></td></tr></table></figure>
+<p>视图的名字来源于<code>views</code>字典–这些键是你在视觉形式字符串中使用的名字，这些值对应视图对象。与人方便，<code>NSDictionaryOfVariableBindings</code> 创建一个字典，它的键对应视图变量的名字。用代码创建约束变成：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *viewsDictionary =</span><br><span class="line">                <span class="built_in">NSDictionaryOfVariableBindings</span>(<span class="keyword">self</span>.button1, <span class="keyword">self</span>.button2);</span><br><span class="line"><span class="built_in">NSArray</span> *constraints =</span><br><span class="line">        [<span class="built_in">NSLayoutConstraint</span> constraintsWithVisualFormat:<span class="string">@"[button1]-[button2]"</span></span><br><span class="line">                            options:<span class="number">0</span> metrics:<span class="literal">nil</span> views:viewsDictionary];</span><br></pre></td></tr></table></figure>
+<p>视觉形式语言更喜欢良好的可视化表达性上的完整性。尽管在实际用户界面上的大多数约束可以使用视觉形式语言，但是有一些是不可以的。长宽比是一个有用的但是不能表达的约束（例如<code>imageView.width = 2 * imageView.height</code>）。为了创建这样的约束，可以使用<code>constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:</code>。</p>
+<p>你也可以使用这个方法创建之前的<code>[button1]-[button2]</code>约束：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSLayoutConstraint</span> constraintWithItem:<span class="keyword">self</span>.button1</span><br><span class="line">		            attribute:<span class="built_in">NSLayoutAttributeRight</span></span><br><span class="line">                            relatedBy:<span class="built_in">NSLayoutRelationEqual</span></span><br><span class="line">               		       toItem:<span class="keyword">self</span>.button2</span><br><span class="line">                            attribute:<span class="built_in">NSLayoutAttributeLeft</span></span><br><span class="line">		           multiplier:<span class="number">1.0</span></span><br><span class="line">		             constant:<span class="number">-12.0</span>];</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/AutoLayout/" rel="tag"># AutoLayout</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/02/2014-12-2-value-transformer-guide/" rel="next" title="值转换器编程指南">
+                <i class="fa fa-chevron-left"></i> 值转换器编程指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/19/2015-03-19-使用UICollectionView遇到的问题/" rel="prev" title="UICollectionView不满屏不能上下滑动的问题">
+                UICollectionView不满屏不能上下滑动的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/02/28/2015-02-28-auto-layout-guide-1/"
+           data-title="自动布局指南" data-url="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Joseph Fu" />
+          <p class="site-author-name" itemprop="name">Joseph Fu</p>
+          <p class="site-description motion-element" itemprop="description">闲哉！</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/category">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动布局-Auto-Layout-介绍"><span class="nav-number">1.</span> <span class="nav-text">自动布局(Auto Layout)介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动布局概念"><span class="nav-number">2.</span> <span class="nav-text">自动布局概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#约束基础"><span class="nav-number">3.</span> <span class="nav-text">约束基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有着内在的内容尺寸"><span class="nav-number">4.</span> <span class="nav-text">有着内在的内容尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用架构"><span class="nav-number">5.</span> <span class="nav-text">应用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器的角色"><span class="nav-number">6.</span> <span class="nav-text">控制器的角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-IB-中使用约束"><span class="nav-number">7.</span> <span class="nav-text">在 IB 中使用约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加约束"><span class="nav-number">8.</span> <span class="nav-text">添加约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-Control-Drag-添加约束"><span class="nav-number">9.</span> <span class="nav-text">通过 Control-Drag 添加约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-Align-和-Pin-菜单添加约束"><span class="nav-number">10.</span> <span class="nav-text">通过 Align 和 Pin 菜单添加约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加缺失的或建议的约束"><span class="nav-number">11.</span> <span class="nav-text">添加缺失的或建议的约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑约束"><span class="nav-number">12.</span> <span class="nav-text">编辑约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除约束"><span class="nav-number">13.</span> <span class="nav-text">删除约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以编程方式使用自动布局"><span class="nav-number">14.</span> <span class="nav-text">以编程方式使用自动布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程创建约束"><span class="nav-number">15.</span> <span class="nav-text">编程创建约束</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joseph Fu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"top2015"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
