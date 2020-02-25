@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,37 +66,35 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="翻译,AutoLayout," />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="翻译,AutoLayout,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
 
 
 
 
 
 
-<meta name="description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
-自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
-自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta name="description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档 自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。 自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta name="keywords" content="翻译,AutoLayout">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自动布局指南">
 <meta property="og:url" content="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/index.html">
 <meta property="og:site_name" content="知行">
-<meta property="og:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
-自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
-自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta property="og:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档 自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。 自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.shujiong.top/images/autolayout/autolayout_1.png">
 <meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_2.png">
 <meta property="og:image" content="http://blog.shujiong.top/images/autolayout/auto_layout_3.png">
@@ -107,9 +105,7 @@
 <meta property="og:updated_time" content="2016-08-02T03:43:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自动布局指南">
-<meta name="twitter:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档
-自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。
-自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
+<meta name="twitter:description" content="Note:到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的传送门 本文翻译自官方文档 自动布局(Auto Layout)介绍对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。 自动布局从Xcode5开始内建在IB（Interface Builder）。在iOS和OS X上同样适用。">
 <meta name="twitter:image" content="http://blog.shujiong.top/images/autolayout/autolayout_1.png">
 
 
@@ -138,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/"/>
+  <link rel="canonical" href="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/">
 
 
 
@@ -177,7 +173,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">知行</span>
       <span class="logo-line-after"><i></i></span>
@@ -206,7 +202,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -216,7 +212,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/category" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -226,7 +222,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -236,7 +232,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -275,14 +271,14 @@
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Joseph Fu">
-    <meta itemprop="description" content="">
+    <meta itemprop="description" content>
     <meta itemprop="image" content="/images/avatar.gif">
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="知行">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="知行" src="">
+      <img style="display:none;" itemprop="url image" alt="知行" src>
     </span>
   </span>
 
@@ -321,7 +317,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -378,7 +374,7 @@
       
 
       
-        <p><strong>Note:</strong>到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的<a href="https://developer.apple.com/library/prerelease/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html" target="_blank" rel="external">传送门</a> <hr><br>本文翻译自官方文档</p>
+        <p><strong>Note:</strong>到目前（2016-07-13）官方文档已经更改三次，下文可看可不看，到官方文档的<a href="https://developer.apple.com/library/prerelease/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html" target="_blank" rel="noopener">传送门</a> <hr><br>本文翻译自官方文档</p>
 <h3 id="自动布局-Auto-Layout-介绍"><a href="#自动布局-Auto-Layout-介绍" class="headerlink" title="自动布局(Auto Layout)介绍"></a>自动布局(<code>Auto Layout</code>)介绍</h3><p>对于一个应用，它的界面元素之间有一定的关系，而自动布局是对这些关系的数学上的描述。通过使用自动布局可以达到布局的目的。</p>
 <p>自动布局从<code>Xcode5</code>开始内建在<code>IB（Interface Builder）</code>。在<code>iOS</code>和<code>OS X</code>上同样适用。</p>
 <a id="more"></a>
@@ -412,7 +408,7 @@
 <li>强烈抵抗在两个方向上的压缩或裁剪。</li>
 </ul>
 <p>例如，在含有彼此相邻的两个按钮的用户界面，如果有额外的空间，它依赖于控制器来决定这些按钮怎样增长。应当只是其中一个按钮增长？应当两个相同的增长？或者应该按比例地？如果没有足够的空间而不压缩或裁剪的内容，以适应这两个按钮，应当其中一个按钮首先被裁断？或者两者一样？等等。</p>
-<p>你使用 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentHuggingPriority:forAxis:" target="_blank" rel="external"><code>setContentHuggingPriority:forAxis:</code></a> 和 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentCompressionResistancePriority:forAxis:" target="_blank" rel="external"><code>setContentCompressionResistancePriority:forAxis:</code></a> 设置一个 <code>UIView</code> 的实例。默认地，视图的有一个值，要么 <code>NSLayoutPriorityDefaultHigh</code>，要么 <code>NSLayoutPriorityDefaultLow</code>。</p>
+<p>你使用 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentHuggingPriority:forAxis:" target="_blank" rel="noopener"><code>setContentHuggingPriority:forAxis:</code></a> 和 <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setContentCompressionResistancePriority:forAxis:" target="_blank" rel="noopener"><code>setContentCompressionResistancePriority:forAxis:</code></a> 设置一个 <code>UIView</code> 的实例。默认地，视图的有一个值，要么 <code>NSLayoutPriorityDefaultHigh</code>，要么 <code>NSLayoutPriorityDefaultLow</code>。</p>
 <hr>
 <h3 id="在-IB-中使用约束"><a href="#在-IB-中使用约束" class="headerlink" title="在 IB 中使用约束"></a>在 <code>IB</code> 中使用约束</h3><p>最简单的添加、编辑或者移除约束的方式就是在 <code>IB</code> 中使用可视化布局工具。在两个视图之间 <code>Control-dragging</code> 会弹出各种窗口，使用这些窗口，你就可以简单的一次创建一个或多个约束。</p>
 <h3 id="添加约束"><a href="#添加约束" class="headerlink" title="添加约束"></a>添加约束</h3><p>当你从 <code>Object Library</code> 中拖出一个元素，并把它拖到 <code>IB</code> 中的画布，该元素开始的时候是无约束的，这是为了通过拖动附件的元素容易地制作界面原型。如果在没有添加任何约束到一个元素上时，你创建并运行，你将发现 <code>IB</code> 修理该元素的宽和高，并且相对于父视图的左上角固定位置；这意味着改变窗口的大小不会移动或改变该元素的位置。为了使你的界面正确的响应大小或方向上的改变，你需要开始添加约束。</p>
@@ -535,8 +531,7 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/02/28/2015-02-28-auto-layout-guide-1/"
-           data-title="自动布局指南" data-url="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/">
+      <div class="ds-thread" data-thread-key="2015/02/28/2015-02-28-auto-layout-guide-1/" data-title="自动布局指南" data-url="http://blog.shujiong.top/2015/02/28/2015-02-28-auto-layout-guide-1/">
       </div>
     
   </div>
@@ -561,7 +556,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -572,9 +567,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="Joseph Fu" />
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Joseph Fu">
           <p class="site-author-name" itemprop="name">Joseph Fu</p>
           <p class="site-description motion-element" itemprop="description">随手记</p>
         </div>
@@ -583,7 +576,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -592,7 +585,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/category">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -654,10 +647,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
