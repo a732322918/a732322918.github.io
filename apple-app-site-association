@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "FFJNMLHK32.cn.damai.iphone",
+                "paths": [ "/fromwechat/*" ]
+            }           
+        ]
+    }
+}
