@@ -1,0 +1,800 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="翻译自Collection View Programming Guide for iOS 设计你的数据源和代理每个集合视图必须有一个数据源对象。这个数据源对象是你的应用程序显示的内容。它可以是来自你的应用程序数据模型中的一个对象，或者是管理集合视图的视图控制器。对数据源的唯一要求是它必须提供集合视图需要的信息，像有多少个项目和当显示项目时使用哪个视图。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集合视图编程指南(三)">
+<meta property="og:url" content="http://blog.shujiong.top/2014/12/08/collection-view-guide-3/index.html">
+<meta property="og:site_name" content="知行">
+<meta property="og:description" content="翻译自Collection View Programming Guide for iOS 设计你的数据源和代理每个集合视图必须有一个数据源对象。这个数据源对象是你的应用程序显示的内容。它可以是来自你的应用程序数据模型中的一个对象，或者是管理集合视图的视图控制器。对数据源的唯一要求是它必须提供集合视图需要的信息，像有多少个项目和当显示项目时使用哪个视图。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.shujiong.top/images/guide/collection_view_guide_3.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/guide/collection_view_guide_4.png">
+<meta property="og:image" content="http://blog.shujiong.top/images/guide/collection_view_guide_5.png">
+<meta property="og:updated_time" content="2016-07-15T02:41:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="集合视图编程指南(三)">
+<meta name="twitter:description" content="翻译自Collection View Programming Guide for iOS 设计你的数据源和代理每个集合视图必须有一个数据源对象。这个数据源对象是你的应用程序显示的内容。它可以是来自你的应用程序数据模型中的一个对象，或者是管理集合视图的视图控制器。对数据源的唯一要求是它必须提供集合视图需要的信息，像有多少个项目和当显示项目时使用哪个视图。">
+<meta name="twitter:image" content="http://blog.shujiong.top/images/guide/collection_view_guide_3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.shujiong.top/2014/12/08/collection-view-guide-3/">
+
+
+
+
+
+  <title> 集合视图编程指南(三) | 知行 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">知行</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">知是行之始，行是知之成</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/category" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.shujiong.top/2014/12/08/collection-view-guide-3/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="知之行之">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="知行">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="知行" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                集合视图编程指南(三)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-08T15:15:52+08:00">
+                2014-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/12/08/collection-view-guide-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/08/collection-view-guide-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译自<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/CreatingCellsandViews/CreatingCellsandViews.html#//apple_ref/doc/uid/TP40012334-CH7-SW1" target="_blank" rel="noopener">Collection View Programming Guide for iOS</a></p>
+<h2 id="设计你的数据源和代理"><a href="#设计你的数据源和代理" class="headerlink" title="设计你的数据源和代理"></a>设计你的数据源和代理</h2><p>每个集合视图必须有一个数据源对象。这个数据源对象是你的应用程序显示的内容。它可以是来自你的应用程序数据模型中的一个对象，或者是管理集合视图的视图控制器。对数据源的唯一要求是它必须提供集合视图需要的信息，像有多少个项目和当显示项目时使用哪个视图。<br><a id="more"></a><br>代理对象是可选的（但是推荐）对象管理与你的内容展示和交互的有关方面。尽管代理的主要工作是管理单元格的高亮和选中，但是它能被扩展提供额外的信息。例如，流布局扩展基本的代理行为来自定义布局矩阵，像单元格的大小及它们之间空间。</p>
+<h3 id="数据源管理你的内容"><a href="#数据源管理你的内容" class="headerlink" title="数据源管理你的内容"></a>数据源管理你的内容</h3><p>数据源对象是管理你使用集合视图要展示的内容的对象。数据源对象必须采用<code>UICollectionViewDataSource</code>协议，该协议定义了你必须支持的基本行为和方法。集合视图的工作是为集合视图提供并回答下面的问题：</p>
+<ul>
+<li>集合视图包含多少个区段？</li>
+<li>对于一个给定的区段，这个区段有多少个项目？</li>
+<li>对于一个给定的区段或项目，要使用什么样的视图来展示对应的内容？</li>
+</ul>
+<p>对集合视图内容来说，区段和项目是基本的组织原则。一个集合视图通常至少含有一个区段并且可能包含更多。按顺序地，每个区段，包含0个或多个项目。项目展示你想要展示的主要内容，而区段组织它们到逻辑上的分组。例如，一个照片应用程序可能使用区段展示一个单独的相册或在同一天的照片集合。</p>
+<p>集合视图使用<code>NSIndexPath</code>对象查阅它包含的数据。当尝试定位一个项目，集合使用使用布局对象提供的索引路径信息。对于项目，索引路劲包含区段的编号和项目的编号。对应补充和装饰视图，索引路劲包含了布局对象提供的任何值。附加到补充和装饰视图的索引路径的意义是依赖于你的应用程序，尽管第一个索引对应一个在数据源中的特定的区段。这些视图的索引路径除了含义更多的是关于鉴别，识别什么种类的哪个视图正在被考虑。这样，如果你有补充视图–在流布局中为你的区段创建页眉和页脚，索引路径提供的相关信息是区段引用的。</p>
+<div class="note"><strong>Note:</strong>尽管标准的索引路径支持多个级别，但是集合视图的索引路径只支持“区段”和“项目”两个级别，就像<code>UITableView</code>类中的索引路径一样。补充和装饰视图如果需要可以有更复杂的索引路径。元素，它的索引路径大于一是被解释在路径中第一个索引指定的区段。<br>另外，只有第二个索引是需要的，但是补充和装饰视图并没有被限制只有两个。当设计数据源时请注意。</div>
+
+<p>无论你在数据对象中怎样安排区段和项目，这些区段和项目的视觉展现仍被布局对象决定。不同的布局对象可以呈现不同的外观。如下图。在该图中，流布局对象排列这些区段垂直分布，自定义布局可以在一个非线性排列中放置这些区段。</p>
+<p><img class="sample-img" src="/images/guide/collection_view_guide_3.png"></p>
+<h3 id="设计你的数据对象"><a href="#设计你的数据对象" class="headerlink" title="设计你的数据对象"></a>设计你的数据对象</h3><p>一个高效的数据源使用区段和项目帮助组织它根本的数据对象。组织你的数据到区段和项目使得之后实现你的数据源方法非常容易。并且因为你的数据源方法被常调用，你想要保住实现这些方法能尽可能快地获取数据。</p>
+<p>一个简单的情况（但不是唯一的情况）是你的数据源使用了嵌套的数据，如下图所示。在这个结构中，一个顶级数据包含一个或多个数组表示数据源的区段。每个区段包含数据项目。寻找在区段中的一个项目就是获取它的区段数组接着从这个数据获取一个项目的问题。这种安排使得它易于管理的项目中等大小的集合和按需检索单个项目。</p>
+<p><img class="sample-img" src="/images/guide/collection_view_guide_4.png"></p>
+<p>当设计你的数据结构时，你可以先使用一个简单的数组集合并在需要时转移到更高效的结构。通常，你的数据对象应当从不是性能瓶颈。集合视图经常访问你的数据源只是计算一共有多少个对象并且获取当前屏幕的视图元素。如果布局对象只依赖于从数据对象的数据，当数据源包含成千上万个对象时，性能会受到严重影响。</p>
+<h3 id="告诉集合视图关于你的内容"><a href="#告诉集合视图关于你的内容" class="headerlink" title="告诉集合视图关于你的内容"></a>告诉集合视图关于你的内容</h3><p>在你的数据源被集合视图问到它包含多少个区段和每个区段包含多少个项目这些问题之中。当下面动作发生时集合视图要求你的数据源提供这些信息：</p>
+<ul>
+<li>集合视图是第一次展示。</li>
+<li>你给集合视图一个不同的数据源对象。</li>
+<li>你明确地调用集合视图的<code>reloadData</code>方法。</li>
+<li>集合视图代理执行一个块使用<code>performBatchUpdates:completion:</code>或移动、插入和删除方法中的任何一个。</li>
+</ul>
+<p>你使用方法<code>numberOfSectionInCollectionView:</code>提供区段的数量，使用方法<code>collectionView:numberOfItemsInSection:</code>提供每个区段中的项目数量。你必须实现方法<code>collectionView:numberOfItemsInSection</code>，但是如果集合视图只有一个区段，实现方法<code>numberOfSectionInCollectionView</code>是可选的。这两个方法返回适当的整形数据。</p>
+<p>如果你像上图一样实现你的数据源，那么你的数据源方法能像下面代码一样简单。在这个代码中，变量<code>_data</code>是一个数据源自定义的成员变量，它保持顶级区段组成的数组。获取这个数组的计算生产区段的数量，获取其中一个子数组的计算生产对应区段的项目数量。（当然，在你自己的代码中，按需进行错误检查来保证返回的值是可用的）。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInCollectionView:(<span class="built_in">UICollectionView</span>*)collectionView &#123;</span><br><span class="line">    <span class="comment">// _data is a class member variable that contains one array per section.</span></span><br><span class="line">    <span class="keyword">return</span> [_data count];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (<span class="built_in">NSInteger</span>)collectionView:(<span class="built_in">UICollectionView</span>*)collectionView numberOfItemsInSection:(<span class="built_in">NSInteger</span>)section &#123;</span><br><span class="line">    <span class="built_in">NSArray</span>* sectionArray = [_data objectAtIndex:section];</span><br><span class="line">    <span class="keyword">return</span> [sectionArray count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="配置单元格和补充视图"><a href="#配置单元格和补充视图" class="headerlink" title="配置单元格和补充视图"></a>配置单元格和补充视图</h3><p>你的数据源另一个重要的任务是提供集合视图用来展示你的内容的视图。集合视图不跟踪你的应用程序的内容。它简单地获取你给它的视图并应用当前的布局信息到这些视图。因此，视图展示的任何东西是你的责任。</p>
+<p>在你的数据源报告它管理多少个区段和项目之后，集合视图要求布局对象为这些集合视图的内容提供布局属性。在某些时候，集合视图要求布局对象提供在一个特定矩形（通常是可见的矩形）中的元素的清单。集合视图使用这个清单向你的数据源要对应的单元格和补充视图。为了提供单元格和补充视图，你的代码必须做到：</p>
+<ol>
+<li>在<code>storyboard</code>文件中嵌入你的单元格和视图模板。（或者，为被支持单元格和视图的每个类型注册类或<code>nib</code>文件）。</li>
+<li>在你的数据源，当被访问时出列并配置合适的单元格和视图。</li>
+</ol>
+<p>为了保证单元格和补充视图以尽可能最高效的方式被使用，集合视图假定为你负责创建这些对象。每个集合视图维持内部的当前未使用的单元格和补充视图的队列。简单地要求集合视图为你提供你想要的视图，而不是你自己创建。如果视图是在重用队列等待，集合视图准备它并快速地返回给你。如果视图不是在等待，集合视图使用注册的类或<code>nib</code>文件创建一个新的并返回给你。这样，每次你处理一个单元格或视图，你总是获得一个准备使用的对象。</p>
+<p>重用标识符使注册多个单元格类型和多个补充视图类型成为可能。一个标识符是一个你用来区分你的注册单元格和补充视图的字符串。这个字符串的内容只和你的数据源对象相关。但是，当被询问一个视图或单元格时，你可以提供索引路径来决定哪个单元格或视图的类型是你想要的，接着传递合适的重用标识符给出列方法。</p>
+<h3 id="注册你的单元格和补充视图"><a href="#注册你的单元格和补充视图" class="headerlink" title="注册你的单元格和补充视图"></a>注册你的单元格和补充视图</h3><p>你可以以编码的方式或在<code>storyboard</code>文件中配置集合视图中的这些单元格和视图。</p>
+<p><strong>在<code>storyboard</code>中配置单元格和视图</strong>。当在一个<code>storyboard</code>中配置单元格和补充视图，你可以通过拖拽它们到集合视图并在那里配置。这样在集合视图和对应的单元格或视图之间创建了关系。</p>
+<ul>
+<li>对于单元格，从对象资源库中拖拽一个集合视图单元格并放下到集合视图上。设置自定义类和给你的单元格集合重用视图标识符一个合适的值。</li>
+<li>对应补充视图，过程类似上面。</li>
+</ul>
+<p><strong>以编码的方式配置单元格</strong>。使用方法<code>registerClass:forCellWithReuseIdentifier:</code>或<code>registerNib:forCellWithReuseIdentifier:</code>关联一个重用标识符到你的单元格。你可能调用这些方法作为父视图控制器初始化处理的一部分。</p>
+<p><strong>以编码的方式配置补充视图</strong>。使用方法<code>registerClass:forSupplementaryViewOfKind:withReuseIdentifier:</code>或<code>registerNib:forSupplementaryViewOfKind:withReuseIdentifier:</code>关联一个重用标识符到每个类型的视图。你可能调用这些方法作为父视图控制器初始化处理的一部分。</p>
+<p>尽管注册单元格只需要一个可重用标识符，但是补充视图需要你指定额外的标识符–类型字符串。每个布局对象负责它支持的补充视图的类型。例如，类<code>UICollectionViewFlowLayout</code>支持两种补充视图：页眉和页脚。为了标识这两个视图的类型，布局对象定义了字符串常量<code>UIColectionElementKidSectionHeader</code>和<code>UICollectionElementKindSectionFooter</code>。在布局中，布局对象为该视图类型的其它布局属性包含类型字符串。然后，集合视图传递这个信息到你的数据源。最后，你的数据源使用类型字符串和重用标识符来决定哪个视图对象出列和返回。</p>
+<div class="note">如果你实现你自己的自定义布局，那么由你负责定义你的布局支持的补充视图。</div>
+
+<p>注册是一次性事件，必须在你尝试出列单元格和视图之前发生。在注册后，你就可以按需要出列单元格和视图。不推荐在出列一个或多个项目之后改变注册信息。最后注册一次。</p>
+<h3 id="出列和配置单元格及视图"><a href="#出列和配置单元格及视图" class="headerlink" title="出列和配置单元格及视图"></a>出列和配置单元格及视图</h3><p>当你的数据源对象被集合视图询问时，它负责提供单元格和补充视图。协议<code>UICollectionViewDataSource</code>为了这个目的提供两个方法：<code>collectionView:cellForItemAtIndexPath:</code>和<code>collectionView:viewForSupplementaryElementOfKind:atIndexPath:</code>。因为单元格是集合视图必须的元素，所以你的数据源必须实现方法<code>collectionView:cellForItemAtIndexPath:</code>，但是方法<code>collectionView:viewForSupplementaryElementOfKind:atIndexPath:</code>是可选的并且依赖于正在使用布局的类型。在两种情况下，实现这些方法的模式：</p>
+<ol>
+<li>使用方法<code>dequeueReusableCellWithReuseIdentifier:forIndexPath:</code>或<code>dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:</code>出列合适类型的单元格或视图。</li>
+<li>在制定的索引路径上使用数据配置这些视图。</li>
+<li>返回视图。</li>
+</ol>
+<p>设计的出列的处理过程解除你自己创建单元格或视图的责任。只要之前你注册一个单元格或视图，出列的方法保证不会返回<code>nil</code>。如果在重用队列上没有给定类型的单元格或视图，出列方法使用你的<code>storyboard</code>或使用你注册的类或<code>nib</code>文件简单地创建。</p>
+<p>从出列处理返回给你的单元格应该是原始的状态并且准备被新数据配置。对于必须被创建的单元格或视图，出列处理使用正常的过程创建和初始化它 —- 通过从<code>storyboard</code>或<code>nib</code>文件加载或者通过使用方法<code>initWithFrame:</code>创建一个新的实例并初始化它。相反地，一个项目不是从智能板创建而是从重用队列获取的，它可能从之前的用途包含数据。在这种情况下，出列方法调用项目的<code>prepareForReuse</code>方法，给项目一个把自身返回到原始状态的机会。当你实现一个自定义单元格或视图类时，你可以覆写这个方法来重设属性到默认值并执行其它额外的清除。</p>
+<p>在你的数据源出列视图，它使用新数据配置这个视图。你可以使用传递到你的数据源方法的索引路径来定位适当的数据对象然后应用这个数据对象到视图。在你配置视图之后，从你的方法中返回它，那么你完成了你的工作。示例代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UICollectionViewCell</span> *)collectionView:(<span class="built_in">UICollectionView</span> *)collectionView</span><br><span class="line">                  cellForItemAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">   MyCustomCell* newCell = [<span class="keyword">self</span>.collectionView dequeueReusableCellWithReuseIdentifier:MyCellID</span><br><span class="line">                                                                          forIndexPath:indexPath];</span><br><span class="line"> </span><br><span class="line">   newCell.cellLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Section:%d, Item:%d"</span>, indexPath.section, indexPath.item];</span><br><span class="line">   <span class="keyword">return</span> newCell;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note"><code>Note:</code>当从你的数据源返回视图，总是返回一个可用的视图。返回<code>nil</code>，甚至其它原因而要求视图不应该展示，引起一个断言并且因为布局对象期望从那些方法返回可用的视图所以你的程序终止。</div>
+
+<h3 id="插入、删除和移动区段和项目"><a href="#插入、删除和移动区段和项目" class="headerlink" title="插入、删除和移动区段和项目"></a>插入、删除和移动区段和项目</h3><p>插入，删除或移动单个部分或项目，请按照下列步骤：</p>
+<ol>
+<li>在你的数据源对象更新数据。</li>
+<li>调用集合视图的合适的方法来插入或删除单个部分或项目。</li>
+</ol>
+<p>在通知你的集合视图任何改变之前，更新你的数据源是至关重要的。集合视图假定你的数据源包含当前正确的数据。如果不是包含正确的数据，集合视图可能从你的数据源收到错误的数据集合或者访问的项目并不在那儿并且你的程序崩溃。</p>
+<p>当你以编码的方式添加，删除或移动单个项目，集合视图的方法自动创建动画来反应这些改变。如果你想一起动画多个改变，这样，你必须执行所有的插入，删除或移动在一个块中调用并把这个块传到方法<code>performBatchUpdates:completion:</code>。这个批更新处理同时动画所有的改变并且你可以随意地在同一个块混合调用插入，删除或移动项目。</p>
+<p>示例代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.collectionView performBatchUpdates:^&#123;</span><br><span class="line">   <span class="built_in">NSArray</span>* itemPaths = [<span class="keyword">self</span>.collectionView indexPathsForSelectedItems];</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Delete the items from the data source.</span></span><br><span class="line">   [<span class="keyword">self</span> deleteItemsFromDataSourceAtIndexPaths:itemPaths];</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Now delete the items from the collection view.</span></span><br><span class="line">   [<span class="keyword">self</span>.collectionView deleteItemsAtIndexPaths:tempArray];</span><br><span class="line">&#125; completion:<span class="literal">nil</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="管理选中和高亮的视觉状态"><a href="#管理选中和高亮的视觉状态" class="headerlink" title="管理选中和高亮的视觉状态"></a>管理选中和高亮的视觉状态</h3><p>集合视图默认支持单个项目选中并且可以配置支持多个项目选中或禁用整个区段。集合视图发现在它范围内的点击并且高亮或选中相应的对应单元格。在大多数情况下，集合视图只修改一个单元格的属性来指示它是选中的或高亮的；它并不改变你的单元格的视觉外观，除了一种情况。这种情况就是，如果单元格<code>selectedBackgroundView</code>属性包含可用的视图，当单元格被选中或高亮时集合视图显示那个视图。</p>
+<p>下面的代码可以被整合到你的实现定制单元格的代码中以帮助高亮和选中状态的外观。单元格的属性<code>backgroundView</code>当视图第一次被加载和视图不是高亮也不是选中状态时的默认视图。无论单元格是高亮还是被选中，属性<code>selectedBackgroundView</code>替换默认的背景视图。在下面的情况下，当单元格被选中或高亮时，单元格的背景颜色从红色变成白色。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span>* backgroundView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="keyword">self</span>.bounds];</span><br><span class="line">backgroundView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line"><span class="keyword">self</span>.backgroundView = backgroundView;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">UIView</span>* selectedBGView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="keyword">self</span>.bounds];</span><br><span class="line">selectedBGView.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line"><span class="keyword">self</span>.selectedBackgroundView = selectedBGView;</span><br></pre></td></tr></table></figure>
+<p>集合视图的代理为集合视图提供下列方法帮助高亮和选中：</p>
+<ul>
+<li><code>collectionView:shouldSelectItemAtIndexPath:</code></li>
+<li><code>collectionView:shouldDeselectItemAtIndexPath:</code></li>
+<li><code>collectionView:didSelectItemAtIndexPath:</code></li>
+<li><code>collectionView:didDeselectItemAtIndexPath:</code></li>
+<li><code>collectionView:shouldHighlightItemAtIndexPath:</code></li>
+<li><code>collectionView:didHighlightItemAtIndexPath:</code></li>
+<li><code>collectionView:didUnhighlightItemAtIndexPath:</code></li>
+</ul>
+<p>这些方法为你提供许多机会来调整你的集合视图的高亮/选中的行为到你确切想要的规格。</p>
+<p>例如，如果你更喜欢自己画单元格的选中状态，你可以留下<code>selectedBackgroundView</code>设置为<code>nil</code>并且使用你的代理对象应用其它视觉改变到单元格。你可能在方法<code>collectionView:didSelectItemAtIndexPath:</code>中应用视觉改变，在方法<code>collectionView:didDeselectItemAtIndexPath:</code>移除它们。</p>
+<p>如果你更喜欢自己画高亮状态，你可以覆写<code>collectionView:didHighlightItemAtIndexPath:</code>和<code>collectionView:didUnhighlightItemAtIndexPath:</code>代理方法并且使用它们应用你的高亮。如果你已在<code>selectedBackgroundView</code>属性指定了一个视图，你应该对单元格的<code>contentView</code>做一些改变来保证你的改变是可见的。如下面的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)collectionView:(<span class="built_in">UICollectionView</span> *)colView didHighlightItemAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">    <span class="built_in">UICollectionViewCell</span>* cell = [colView cellForItemAtIndexPath:indexPath];</span><br><span class="line">    cell.contentView.backgroundColor = [<span class="built_in">UIColor</span> blueColor];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (<span class="keyword">void</span>)collectionView:(<span class="built_in">UICollectionView</span> *)colView didUnhighlightItemAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</span><br><span class="line">    <span class="built_in">UICollectionViewCell</span>* cell = [colView cellForItemAtIndexPath:indexPath];</span><br><span class="line">    cell.contentView.backgroundColor = <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在高亮状态和选中状态之间有微妙的但是重要的区别。高亮状态是一个过渡状态，当用户的手指仍在触摸设备的同时，你可以应用视觉高亮到单元格。当集合视图跟踪单元格上的触摸事件时这个状态设置为<code>YES</code>。当触摸事件停止，高亮状态返回到<code>NO</code>。相反地，选中状态在一系列触摸事件结束改变 — 特别地，当那么触摸事件只是用户尝试选中单元格。</p>
+<p>下图阐明当用户触摸一个未经选中的单元格时发生的一系列步骤。初始触摸按下事件引起集合视图改变单元格的高亮状态为<code>YES</code>，尽管这么做不会自动改变单元格的外观。如果最后的触摸离开事件发生在这个单元格，它的高亮状态返回<code>NO</code>并且集合视图改变选中状态到<code>YES</code>。当用户改变选中状态，集合视图显示单元格的<code>selectedBackgroundView</code>属性，但是，这是集合视图改变单元格的唯一视觉改变，其它视觉改变必须被你的代理对象来做。</p>
+<div class="img-section"><img class="sample-img" src="/images/guide/collection_view_guide_5.png"></div>
+
+<p>用户或是选择或是取消选择一个单元格，单元格的选中状态总是最后改变的事物。点击单元格总是导致首先改变单元格的高亮状态。只有在点击序列事件结束和任何在序列事件中移除高亮状态之后，单元格的选中状态才会改变。当设计你的单元格时，你应该保证你的高亮状态和选中状态的视觉外观在意想不到的的情况下不冲突。</p>
+<h3 id="在单元格上显示编辑菜单"><a href="#在单元格上显示编辑菜单" class="headerlink" title="在单元格上显示编辑菜单"></a>在单元格上显示编辑菜单</h3><p>当用户在单元格上执行一个长按手势，集合视图视图为该单元格展示编辑菜单。编辑菜单可以用来剪切、复制和粘贴集合视图中的单元格。在编辑菜单被展示之前必须满足以下几个条件：</p>
+<ul>
+<li>代理必须实现与处理动作有关的三个方法：<br><code>collectionView:shouldShowMenuForItemAtIndexPath:</code> <br><code>collectionView:canPerformAction:forItemAtIndexPath:withSender:</code> <br><code>collectionView:performAction:forItemAtIndexPath:withSender:</code></li>
+<li>方法<code>collectionView:shouldShowMenuForItemAtIndexPath:</code>必须为指示的单元格返回<code>YES</code>。</li>
+<li>方法<code>collectionView:canPerformAction:forItemAtIndexPath:withSender:</code>至少为一个期望的动作返回<code>YES</code>。集合视图支持下面的动作: <br><code>cut:</code><br><code>copy:</code><br><code>paste:</code></li>
+</ul>
+<p>如果这些条件被满足并且用户从编辑菜单选中一个动作，集合视图调用代理的方法<code>collectionView:performAction:forItemAtIndexPath:withSender:</code>在指示的项目上执行动作。</p>
+<p>下面代码展示怎样阻止编辑菜单的一个项目显示：</p>
+<p>在编辑菜单有选择地禁用动作<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)collectionView:(<span class="built_in">UICollectionView</span> *)collectionView</span><br><span class="line">        canPerformAction:(SEL)action</span><br><span class="line">        forItemAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">        withSender:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">   <span class="comment">// Support only copying and pasting of cells.</span></span><br><span class="line">   <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(action) isEqualToString:<span class="string">@"copy:"</span>]</span><br><span class="line">      || [<span class="built_in">NSStringFromSelector</span>(action) isEqualToString:<span class="string">@"paste:"</span>])</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Prevent all other actions.</span></span><br><span class="line">   <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="布局之间转换"><a href="#布局之间转换" class="headerlink" title="布局之间转换"></a>布局之间转换</h3><p>在布局之间变换最简单的方式是使用方法<code>setCollectionViewLayout:animated:</code>。然而，如果你需要控制变换或者想要变换变得可交互的，那么使用<code>UICollectionViewTransitionLayout</code>对象。</p>
+<p>类<code>UICollectionViewTransitionLayout</code>是布局转换到新布局时被安装为集合视图布局对象的一种特殊类型。有了转换布局对象，你可以使对象遵循非直线路径，使用不同的时序算法，或根据传入的触摸事件移动。标准类提供线性转换到新布局，但是像<code>UICollectionViewLayout</code>类，<code>UICollectionViewTransitionLayout</code>类可以被子类化来创建任何期望的效果。在此过程中，你需要实现跟创建定制布局时相同的方法并且允许你的实现适应用户的输入，最常见的是手势识别。</p>
+<p><code>UICollectionViewLayout</code>为跟踪布局之间的转换提供几个方法。<code>UICollectionViewTransitionLayout</code>通过<code>transitionProgress</code>属性跟踪转换的完成度。当转换发生，你的代码周期性更新这个属性来指示转换的完成百分比。例如，<code>UICollectinViewTransitionLayout</code>类跟像手势识别器那样可以在布局转换使用的对象一起工作，类<code>UICollectionViewTransitionLayout</code>为跟踪布局相关的值提供两个方法：<code>updateValue:forAnimatedKey:</code>和<code>valueForAnimatedKey:</code>。这些方法和布局重要信息一起工作，跟踪在转换过程中你可以设置和改变的特别的浮点值。例如，如果你使用捏合手势来转换布局，你可以使用这些方法告诉转换布局对象在偏移量为何值时从一个到另一个。</p>
+<p>使用<code>UICollectionViewTransitionLayout</code>的步骤如下:</p>
+<ol>
+<li>使用方法<code>initWithCurrentLayout:nextLayout:</code>创建标准类或你自定义类。</li>
+<li>周期性修改<code>transitionProgress</code>属性的值。在改变<code>transitionProgress</code>值之后，不要忘记使用集合视图的<code>invalidLayout</code>方法来使布局无效。</li>
+<li>在你的集合视图代理中实现方法<code>collectionView:transitionLayoutForOldLayout:newLayout:</code>并返回你的转换布局对象。</li>
+<li>可选地使用方法<code>updateValue:forAnimatedKey:</code>指示布局相关的值。固定值是<code>0</code>。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/02/2014-12-2-value-transformer-guide/" rel="next" title="值转换器编程指南">
+                <i class="fa fa-chevron-left"></i> 值转换器编程指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/10/collection-view-guide-4/" rel="prev" title="集合视图编程指南(四)">
+                集合视图编程指南(四) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/12/08/collection-view-guide-3/" data-title="集合视图编程指南(三)" data-url="http://blog.shujiong.top/2014/12/08/collection-view-guide-3/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="知之行之">
+          <p class="site-author-name" itemprop="name">知之行之</p>
+          <p class="site-description motion-element" itemprop="description">随手记</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/category">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计你的数据源和代理"><span class="nav-number">1.</span> <span class="nav-text">设计你的数据源和代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据源管理你的内容"><span class="nav-number">1.1.</span> <span class="nav-text">数据源管理你的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计你的数据对象"><span class="nav-number">1.2.</span> <span class="nav-text">设计你的数据对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#告诉集合视图关于你的内容"><span class="nav-number">1.3.</span> <span class="nav-text">告诉集合视图关于你的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置单元格和补充视图"><span class="nav-number">1.4.</span> <span class="nav-text">配置单元格和补充视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册你的单元格和补充视图"><span class="nav-number">1.5.</span> <span class="nav-text">注册你的单元格和补充视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出列和配置单元格及视图"><span class="nav-number">1.6.</span> <span class="nav-text">出列和配置单元格及视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入、删除和移动区段和项目"><span class="nav-number">1.7.</span> <span class="nav-text">插入、删除和移动区段和项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理选中和高亮的视觉状态"><span class="nav-number">1.8.</span> <span class="nav-text">管理选中和高亮的视觉状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在单元格上显示编辑菜单"><span class="nav-number">1.9.</span> <span class="nav-text">在单元格上显示编辑菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局之间转换"><span class="nav-number">1.10.</span> <span class="nav-text">布局之间转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">知之行之</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"top2015"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
